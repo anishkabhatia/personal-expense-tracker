@@ -1,6 +1,9 @@
 from datetime import date, datetime
 from pydantic import BaseModel, Field
+from decimal import Decimal
+# from typing import Literal
 
+# CategoryType = Literal[app.constants.categories.CATEGORY_CHOICES]
 
 class TransactionCreate(BaseModel):
     transaction_date: date
@@ -8,15 +11,11 @@ class TransactionCreate(BaseModel):
         min_length=1, 
         max_length=255
     )
-    amount: float = Field(gt= 0)
+    amount: Decimal = Field(gt=0)
 
     category: str = "Other"
 
     payment_source: str | None = None
-
-    is_shared: bool = False
-
-    personal_share: float | None = None
 
     notes: str | None = None
 
@@ -27,25 +26,19 @@ class TransactionResponse(BaseModel):
 
     merchant: str
 
-    amount: float
+    amount: Decimal
 
     category: str
 
     payment_source: str | None
 
-    is_shared: bool
-
-    personal_share: float | None
-
     notes: str | None
 
     created_at: datetime | None = None
 
+    is_split: bool = False
+
 class TransactionUpdate(BaseModel):
     category: str | None = None
-
-    is_shared: bool | None = None
-
-    personal_share: float | None = None
 
     notes: str | None = None

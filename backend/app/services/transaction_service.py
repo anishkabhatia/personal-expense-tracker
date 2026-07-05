@@ -28,12 +28,14 @@ class TransactionService:
                     "amount": transaction.amount,
                     "category": transaction.category,
                     "payment_source": transaction.payment_source,
-                    "is_shared": transaction.is_shared,
-                    "personal_share": transaction.personal_share,
-                    "notes": transaction.notes
+                    "notes": transaction.notes,
+                    "is_split": False
                 }
             )
             .execute()
         )
+
+        if not response.data or len(response.data) == 0:
+            raise HTTPException(status_code=500, detail="Failed to create transaction")
 
         return response.data[0]
