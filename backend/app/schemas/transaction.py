@@ -11,7 +11,7 @@ class TransactionCreate(BaseModel):
         min_length=1, 
         max_length=255
     )
-    amount: Decimal = Field(gt=0)
+    amount: float = Field(gt=0)
 
     category: str = "Other"
 
@@ -26,7 +26,7 @@ class TransactionResponse(BaseModel):
 
     merchant: str
 
-    amount: Decimal
+    amount: float
 
     category: str
 
